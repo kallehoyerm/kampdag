@@ -1,0 +1,1 @@
+export function appendDates(existing,start,end,build){const next={...existing};let d=start;while(d<=end){if(!(d in next))next[d]=build(d,next);const x=new Date(`${d}T12:00:00Z`);x.setUTCDate(x.getUTCDate()+1);d=x.toISOString().slice(0,10);}return next;}
