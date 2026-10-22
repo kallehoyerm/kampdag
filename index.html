@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#176b42">
+  <meta name="description" content="Kampdag – dagens fodboldquiz. Find et korrekt svar, der ikke er det oplagte.">
+  <title>Kampdag — dagens fodboldquiz</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Kampdag, startside"><span class="brand-ball">⚽</span><span>KAMPDAG</span></a>
+      <button class="text-button" id="how-button" type="button">Sådan spiller du</button>
+    </header>
+    <section class="screen active" id="start-screen" aria-labelledby="home-title">
+      <p class="eyebrow" id="today-label"></p>
+      <h1 id="home-title">Dagens kamp<br><span>venter på dig.</span></h1>
+      <p class="intro">7 spørgsmål. 25 sekunder pr. svar. Gå efter det rigtige, sjældne svar.</p>
+      <div class="pitch start-pitch" aria-hidden="true"><span class="pitch-ball">⚽</span><span class="center-line"></span></div>
+      <div class="stats-row"><div><strong id="streak">0</strong><span>dages streak</span></div><div><strong id="last-score">—</strong><span>seneste score</span></div></div>
+      <button class="primary" id="start-button" type="button">Spil dagens quiz <span aria-hidden="true">→</span></button>
+      <p class="small-note" id="played-note"></p>
+    </section>
+
+    <section class="screen" id="question-screen" aria-labelledby="question-title" hidden>
+      <div class="quiz-meta"><span id="round-count">SPØRGSMÅL 1/7</span><span class="timer" id="timer" aria-live="off">25</span></div>
+      <div class="pitch mini-pitch" aria-label="Din bold rykker frem for hvert point"><span class="pitch-ball" id="moving-ball">⚽</span><span class="center-line"></span><span class="goal"></span></div>
+      <p class="eyebrow">DAGENS KATEGORI</p>
+      <h1 class="question" id="question-title"></h1>
+      <p class="hint">Skriv ét svar. Sjældnere svar giver flere point.</p>
+      <form id="answer-form" autocomplete="off">
+        <label class="sr-only" for="answer-input">Dit svar</label>
+        <input id="answer-input" name="answer" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" maxlength="70" placeholder="Dit svar…">
+        <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        <button class="primary" id="submit-button" type="submit">Svar <span aria-hidden="true">↵</span></button>
+      </form>
+    </section>
+
+    <section class="screen" id="reveal-screen" aria-labelledby="reveal-title" hidden>
+      <p class="eyebrow" id="reveal-count"></p><h1 id="reveal-title">Dit svar</h1>
+      <div class="score-card"><div class="score-number" id="earned-points">0</div><div><strong id="answer-result"></strong><span id="rarity-label"></span></div></div>
+      <p class="reveal-copy" id="rarer-copy"></p><ul id="rarer-list" class="rarer-list"></ul>
+      <p class="trivia" id="trivia"></p>
+      <button class="primary" id="next-button" type="button">Videre <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section class="screen" id="result-screen" aria-labelledby="result-title" hidden>
+      <p class="eyebrow" id="result-date"></p><h1 id="result-title">Slutfløjt!</h1>
+      <div class="final-score"><strong id="total-score">0</strong><span>/ 700 point</span></div>
+      <p class="rank" id="rank-title"></p>
+      <div class="pitch result-pitch" aria-hidden="true"><span class="pitch-ball" id="result-ball">⚽</span><span class="center-line"></span><span class="goal"></span></div>
+      <div class="result-actions"><button class="primary" id="share-button" type="button">Del resultat <span aria-hidden="true">↗</span></button><button class="secondary" id="home-button" type="button">Til forsiden</button></div>
+      <p class="feedback" id="share-feedback" role="status" aria-live="polite"></p>
+      <div class="history"><h2>Seneste resultater</h2><ol id="history-list"></ol></div>
+    </section>
+
+    <section class="screen how-screen" id="how-screen" aria-labelledby="how-title" hidden>
+      <p class="eyebrow">REGLERNE</p><h1 id="how-title">Sådan spiller du</h1>
+      <ol class="rules"><li>Du får 7 forskellige kategorier. Svar inden for 25 sekunder.</li><li>Et korrekt, mere sjældent svar giver flere point: 10, 30, 60, 85 eller 100.</li><li>Du kan ikke ændre et svar, når du har sendt det.</li><li>Én omgang om dagen. Din score og streak gemmes kun på denne enhed.</li></ol>
+      <button class="primary" id="how-close" type="button">Forstået</button>
+    </section>
+    <footer>Et uofficielt spil uden tilknytning til FIFA, UEFA, DBU eller klubber.</footer>
+  </main>
+</body>
+</html>
