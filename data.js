@@ -2,7 +2,7 @@
 (function () {
   const spiller = (navn, aliaser = []) => ({ navn, aliaser, grad: 1 });
   const pools = {
-    pl: ["Alan Shearer","Thierry Henry","Wayne Rooney","Frank Lampard","Steven Gerrard","Ryan Giggs","Paul Scholes","Sergio Agüero","Harry Kane","Mohamed Salah","Kevin De Bruyne","Cristiano Ronaldo","David Beckham","Eric Cantona","Dennis Bergkamp","Didier Drogba","Patrick Vieira","Tony Adams","John Terry","Cesc Fàbregas","Robin van Persie","Luis Suárez","Son Heung-min","Jürgen Klinsmann","Petr Čech","Ruud van Nistelrooy","Roy Keane","Michael Owen","Jamie Vardy","Gareth Bale"],
+    pl: ["Alan Shearer","Thierry Henry","Wayne Rooney","Frank Lampard","Steven Gerrard","N’Golo Kanté","Ryan Giggs","Paul Scholes","Sergio Agüero","Harry Kane","Mohamed Salah","Kevin De Bruyne","Cristiano Ronaldo","David Beckham","Eric Cantona","Dennis Bergkamp","Didier Drogba","Patrick Vieira","Tony Adams","John Terry","Cesc Fàbregas","Robin van Persie","Luis Suárez","Son Heung-min","Jürgen Klinsmann","Petr Čech","Ruud van Nistelrooy","Roy Keane","Michael Owen","Jamie Vardy","Gareth Bale"],
     dansk: ["Peter Schmeichel","Kasper Schmeichel","Christian Eriksen","Michael Laudrup","Brian Laudrup","Preben Elkjær","Allan Simonsen","Jon Dahl Tomasson","Thomas Sørensen","Daniel Agger","Simon Kjær","Nicklas Bendtner","Christian Poulsen","Thomas Gravesen","Jesper Grønkjær","Martin Jørgensen","Pierre-Emile Højbjerg","Andreas Christensen","Joachim Andersen","Rasmus Højlund","Morten Hjulmand","Kasper Dolberg","Yussuf Poulsen","Thomas Delaney","Nicolai Jørgensen","Lars Jacobsen","Dennis Rommedahl","Martin Braithwaite","Søren Lerby","Jan Mølby"],
     laliga: ["Lionel Messi","Cristiano Ronaldo","Xavi","Andrés Iniesta","Sergio Ramos","Karim Benzema","Luka Modrić","Antoine Griezmann","Zinedine Zidane","Ronaldinho","Rivaldo","Luis Suárez","Neymar","Iker Casillas","Raúl","David Villa","Fernando Torres","Sergio Busquets","Carles Puyol","Gerard Piqué","Toni Kroos","Gareth Bale","Diego Maradona","Samuel Eto'o","Johan Cruyff","Ronaldo Nazário","Thibaut Courtois","Dani Alves","Hugo Sánchez","Radamel Falcao"],
     seriea: ["Paolo Maldini","Francesco Totti","Alessandro Del Piero","Andrea Pirlo","Gianluigi Buffon","Zlatan Ibrahimović","Ronaldo Nazário","Kaká","Rui Costa","Roberto Baggio","Gennaro Gattuso","Franco Baresi","Javier Zanetti","Diego Maradona","Gabriel Batistuta","Christian Vieri","Filippo Inzaghi","Alessandro Nesta","Clarence Seedorf","Edinson Cavani","Lautaro Martínez","Gonzalo Higuaín","Ciro Immobile","Romelu Lukaku","Dida","Cafu","Thiago Silva","Daniele De Rossi","Pavel Nedvěd","George Weah"],
@@ -38,6 +38,7 @@
       if (navn === "Manchester City") aliaser.push("Man City");
       if (navn === "Paris Saint-Germain") aliaser.push("PSG");
       if (navn === "Lionel Messi") aliaser.push("Messi");
+      if (navn === "N’Golo Kanté") aliaser.push("Kante","N Golo Kante");
       if (navn === "Cristiano Ronaldo") aliaser.push("Ronaldo","CR7");
       if (navn === "Robert Lewandowski") aliaser.push("Lewandowski");
       return { navn, aliaser, grad: i < 3 ? 1 : i < 8 ? 2 : i < 15 ? 3 : i < 23 ? 4 : 5 };
