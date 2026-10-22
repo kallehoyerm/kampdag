@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#176b42">
   <meta name="description" content="Kampdag – dagens fodboldquiz. Find et korrekt svar, der ikke er det oplagte.">
+  <meta name="kampdag-api" content="">
   <title>Kampdag — dagens fodboldquiz</title>
   <link rel="stylesheet" href="style.css">
-  <script src="data.js" defer></script>
-  <script src="game.js" defer></script>
+  <script type="module" src="game.js"></script>
 </head>
 <body>
   <main class="app" id="app">
@@ -52,18 +52,23 @@
       <p class="eyebrow" id="result-date"></p><h1 id="result-title">Slutfløjt!</h1>
       <div class="final-score"><strong id="total-score">0</strong><span>/ 700 point</span></div>
       <p class="rank" id="rank-title"></p>
+      <p class="result-symbols" id="round-symbols" aria-label="Dine syv runder"></p>
+      <p class="countdown" id="countdown">Næste quiz om --:--:--</p>
+      <div class="statistics" id="statistics"><h2>Dagens statistik</h2><p id="stats-message">Henter dagens statistik…</p><div id="stats-body" hidden></div><button class="text-button" id="stats-retry" type="button" hidden>Prøv igen</button></div>
       <div class="pitch result-pitch" aria-hidden="true"><span class="pitch-ball" id="result-ball">⚽</span><span class="center-line"></span><span class="goal"></span></div>
       <div class="result-actions"><button class="primary" id="share-button" type="button">Del resultat <span aria-hidden="true">↗</span></button><button class="secondary" id="home-button" type="button">Til forsiden</button></div>
       <p class="feedback" id="share-feedback" role="status" aria-live="polite"></p>
       <div class="history"><h2>Seneste resultater</h2><ol id="history-list"></ol></div>
     </section>
 
+    <section class="screen" id="privacy-screen" aria-labelledby="privacy-title" hidden><p class="eyebrow">DINE DATA</p><h1 id="privacy-title">Privatliv</h1><p>Spillet opretter et tilfældigt id på din enhed for at undgå, at samme dags resultat tælles flere gange. Der er ingen konto, cookies, IP-logning eller personoplysninger. Dine svar sendes til serveren, som beregner pointene. Serveren gemmer dato, id og point pr. runde, men ikke svarteksten.</p><p>Hvis forbindelsen mangler, gemmes resultatet midlertidigt i en lokal udbakke og prøves sendt igen senere.</p><button class="primary" id="privacy-close" type="button">Tilbage</button></section>
+
     <section class="screen how-screen" id="how-screen" aria-labelledby="how-title" hidden>
       <p class="eyebrow">REGLERNE</p><h1 id="how-title">Sådan spiller du</h1>
       <ol class="rules"><li>Du får 7 forskellige kategorier. Svar inden for 25 sekunder.</li><li>Et korrekt, mere sjældent svar giver flere point: 10, 30, 60, 85 eller 100.</li><li>Du kan ikke ændre et svar, når du har sendt det.</li><li>Én omgang om dagen. Din score og streak gemmes kun på denne enhed.</li></ol>
       <button class="primary" id="how-close" type="button">Forstået</button>
     </section>
-    <footer>Et uofficielt spil uden tilknytning til FIFA, UEFA, DBU eller klubber.</footer>
+    <footer><a id="privacy-link" href="#privacy">Privatliv</a> · Et uofficielt spil uden tilknytning til FIFA, UEFA, DBU eller klubber.</footer>
   </main>
 </body>
 </html>

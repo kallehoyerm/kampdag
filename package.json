@@ -1,0 +1,1 @@
+{"type":"module","scripts":{"data":"node scripts/byg-data.mjs && node scripts/byg-perioder.mjs && node scripts/stabiliser-spoergsmaals-id.mjs","calendar":"node scripts/byg-kalender.mjs","validate":"node validate-data.js","test":"node test.js"}}

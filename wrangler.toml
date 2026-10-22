@@ -1,0 +1,17 @@
+name = "kampdag-api"
+main = "worker/index.js"
+compatibility_date = "2026-10-22"
+workers_dev = true
+
+[migrations]
+migrations_dir = "worker/migrations"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kampdag"
+database_id = "SET_DATABASE_ID_AFTER_CREATING_D1"
+
+[assets]
+directory = "."
+binding = "ASSETS"
+not_found_handling = "single-page-application"

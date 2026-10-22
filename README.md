@@ -1,21 +1,30 @@
 # Kampdag
 
-En statisk dansk fodboldquiz uden konto, backend, tracking eller reklamer.
+Kampdag er fortsat en statisk dansk fodboldquiz på GitHub Pages. HTML/CSS/JS er bevaret; quizpuljen genereres fra åbne kilder, og en lille Cloudflare Worker kan levere anonym statistik.
 
-## Åbn spillet
+## Kør lokalt
 
-Åbn `index.html` direkte i en moderne browser. Der er ingen buildproces eller installation. Alternativt kan mappen udgives direkte på GitHub Pages, Netlify eller et andet statisk webhotel.
+Installér Node.js 20 eller nyere, og kør:
 
-## Spørgsmål og data
+```sh
+npm run data
+npm run calendar
+npm run validate
+npm test
+```
 
-Redigér `data.js`. Hvert spørgsmål har et `id`, en `tekst`, 25–50 `answers` og en kort `trivia`. Hvert svar skal have `navn`, `aliaser` (en liste) og `grad` fra 1 til 5. Graderne giver henholdsvis 10, 30, 60, 85 og 100 point. `game.js` indeholder brugerfladens danske tekster og spilregler.
+`scripts/byg-data.mjs` henter spiller/hold-tilknytninger fra Wikidata og sjældenhedsdata fra Wikimedia Pageviews. `scripts/byg-perioder.mjs` føjer særskilte spørgsmål til, der bygger på daterede start-/slutdatoer for holdtilknytning. `scripts/stabiliser-spoergsmaals-id.mjs` laver stabile spørgsmålsnøgler, så en større pulje ikke flytter allerede offentliggjorte kalenderdatoer. `data.js` er genereret, ikke håndredigeret. Svar uden dansk eller engelsk Wikipedia-artikel markeres som svage kilder, og skjules i reveal-eksempler. Kilderapporten ligger i `data/kilderapport.md`.
 
-Kontrollér data med `node validate-data.js`. Kør spilfunktionernes tests med `node test.js`.
+`scripts/byg-kalender.mjs` føjer datoer til kalenderen uden at overskrive datoer, der allerede findes i `kalender.js`. Dagen beregnes i spillerens lokale tidszone; midnat håndterer sommertid.
 
-## Dagsvalg og gemt spil
+## Statistik-backend
 
-Datoen beregnes i tidszonen Europe/Copenhagen. En seedet shuffle vælger dagens syv forskellige spørgsmål. Algoritmen afviser en 7-spørgsmåls-kombination, der allerede blev brugt inden for de foregående 30 datoer. Med 40 spørgsmål er det matematisk umuligt at undgå at gentage enkelte spørgsmål i 30 dage (der bruges 210 pladser på 40 spørgsmål); derfor gælder 30-dages-reglen for hele quizkombinationen. Samme dato giver samme kombination hos alle, og lokal lagring gemmer svar, score og starttid for den aktive runde.
+Den statiske side virker uden API. Statistik-API'en bruger Cloudflare Workers + D1: Worker genberegner alle syv point med `shared/game-core.js` og de samme genererede spørgsmål, og D1 gemmer kun dato, anonymt klient-id og point. Den gemmer ikke svartekst, IP-adresse eller personoplysninger. CORS er låst til `https://kallehoyerm.github.io`.
 
-## Bemærkning om startdata
+Cloudflares aktuelle gratisgrænser er op til 100.000 Worker-requests/dag og D1's gratisniveau har daglige læse-/skrivekvoter; overskridelse af D1-kvoten kan sætte forespørgsler på pause til næste UTC-døgn. Grænserne er passende til en lille hobbyquiz, men kan ændre sig: [Workers limits](https://developers.cloudflare.com/workers/platform/limits/) og [D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/).
 
-De 40 startkategorier genbruger ti brede, stabile puljer. Svarenes sjældenhedsgrader er foreløbige redaktionelle skøn, ikke målinger af spilleradfærd. Gennemgå og redigér puljer og grader, før quizzen bruges som en faktatjekket offentlig udgivelse.
+Opret en D1-database med `npx wrangler d1 create kampdag`, sæt det returnerede id i `wrangler.toml`, kør `npx wrangler d1 migrations apply kampdag --remote` og derefter `npx wrangler deploy`. Sæt derefter `meta[name="kampdag-api"]` i `index.html` til `https://kampdag-api.<dit-workers.dev-underdomæne>.workers.dev/api`. Worker-konfigurationen er klar i `worker/` og `wrangler.toml`; publicering kræver en Cloudflare-konto. Ingen Cloudflare-legitimationsoplysninger er lagt i klientkoden.
+
+## Tests
+
+`npm test` dækker den delte klient/server-scorer, lokal dato, 25 timers døgn ved vintertidsskiftet 25. oktober 2026, kalenderopslag og uforanderlighed for allerede publicerede datoer samt ugyldige backenddatoer. `npm run validate` fejler, hvis et svar mangler kildefelter.
